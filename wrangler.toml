@@ -1,0 +1,5 @@
+name = "tizone-ir"
+compatibility_date = "2026-09-14"
+
+# Static site - no worker needed
+no_bundle = true
