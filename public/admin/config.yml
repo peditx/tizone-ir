@@ -1,0 +1,86 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/media"
+public_folder: "/media"
+
+slug:
+  encoding: "ascii"
+  clean_accents: true
+  sanitize_replacement: "-"
+
+collections:
+  # ============================================
+  # Profile (single page)
+  # ============================================
+  - name: "profile"
+    label: "Profile"
+    folder: "src/content"
+    create: true
+    slug: "profile"
+    fields:
+      - { label: "Title", name: "title", widget: "hidden", default: "Profile" }
+      - { label: "Name", name: "name", widget: "string", required: true }
+      - { label: "Tagline", name: "tagline", widget: "string", required: true }
+      - { label: "Bio", name: "bio", widget: "text", required: true, rows: 4 }
+      - { label: "Profile Image", name: "imageUrl", widget: "image", required: true }
+      - { label: "Email", name: "email", widget: "string", required: false }
+      - { label: "Phone", name: "phone", widget: "string", required: false }
+      - { label: "Location", name: "location", widget: "string", required: false, default: "Tehran, Iran" }
+
+  # ============================================
+  # Projects (folder collection)
+  # ============================================
+  - name: "projects"
+    label: "Projects"
+    folder: "src/content/projects"
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}} — {{tags}}"
+    sortable_fields: ["order", "title"]
+    fields:
+      - { label: "Title", name: "title", widget: "string", required: true }
+      - { label: "YouTube Video ID", name: "videoId", widget: "string", required: true,
+          hint: "From YouTube URL: youtube.com/watch?v=VIDEO_ID" }
+      - { label: "Description", name: "description", widget: "text", required: true, rows: 3 }
+      - { label: "Tags", name: "tags", widget: "select", multiple: true, required: true,
+          options: ["music-video", "commercial", "film", "documentary", "motion-graphics", "experimental"] }
+      - { label: "Order", name: "order", widget: "number", default: 99, min: 1 }
+      - { label: "Featured", name: "featured", widget: "boolean", default: false,
+          hint: "Featured projects display full-width at the top" }
+
+  # ============================================
+  # Social Links (folder collection)
+  # ============================================
+  - name: "links"
+    label: "Social Links"
+    folder: "src/content/links"
+    create: true
+    slug: "{{name}}"
+    summary: "{{name}} — {{url}}"
+    sortable_fields: ["order"]
+    fields:
+      - { label: "Name", name: "name", widget: "string", required: true }
+      - { label: "URL", name: "url", widget: "string", required: true }
+      - { label: "Icon (SVG path)", name: "icon", widget: "text", required: true,
+          hint: "Paste SVG path data only, e.g. M12 2C6.48..." }
+      - { label: "Order", name: "order", widget: "number", default: 99, min: 1 }
+
+  # ============================================
+  # Site Settings (single JSON file)
+  # ============================================
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - name: "general"
+        label: "General Settings"
+        file: "src/data/settings.json"
+        fields:
+          - { label: "Site Name", name: "siteName", widget: "string", default: "Tizone" }
+          - { label: "Accent Color", name: "accentColor", widget: "color", default: "#2997ff" }
+          - { label: "Background Color", name: "bgColor", widget: "color", default: "#000000" }
+          - { label: "Contact Email", name: "contactEmail", widget: "string" }
+          - { label: "Contact Phone", name: "contactPhone", widget: "string" }
+          - { label: "Contact Location", name: "contactLocation", widget: "string", default: "Tehran, Iran" }
+          - { label: "Footer Text", name: "footerText", widget: "string", default: "All rights reserved." }

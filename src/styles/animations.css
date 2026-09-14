@@ -1,0 +1,360 @@
+/* ============================================
+   Tizone.ir - KINETIC 3D ANIMATIONS
+   Epic cinematic effects
+   ============================================ */
+
+@property --gradient-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* ============================================
+   ENTRANCE ANIMATIONS
+   ============================================ */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(60px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes heroTextReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(120%) rotateX(-90deg);
+    filter: blur(12px);
+  }
+  50% {
+    opacity: 0.8;
+    filter: blur(4px);
+  }
+  75% {
+    transform: translateY(-5%) rotateX(5deg);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotateX(0deg);
+    filter: blur(0);
+  }
+}
+
+@keyframes cinematicReveal {
+  0% {
+    opacity: 0;
+    transform: scale(1.3) translateY(30px);
+    filter: blur(20px) brightness(2);
+  }
+  60% {
+    filter: blur(0) brightness(1.2);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0) brightness(1);
+  }
+}
+
+/* ============================================
+   KINETIC 3D CARD EFFECTS
+   ============================================ */
+
+/* Dramatic idle rotation - like a product showcase */
+@keyframes kineticIdle {
+  0% {
+    transform: rotateY(-12deg) rotateX(5deg) translateZ(0px) scale(1);
+  }
+  25% {
+    transform: rotateY(8deg) rotateX(-3deg) translateZ(15px) scale(1.02);
+  }
+  50% {
+    transform: rotateY(12deg) rotateX(5deg) translateZ(0px) scale(1);
+  }
+  75% {
+    transform: rotateY(-8deg) rotateX(-3deg) translateZ(15px) scale(1.02);
+  }
+  100% {
+    transform: rotateY(-12deg) rotateX(5deg) translateZ(0px) scale(1);
+  }
+}
+
+/* Featured card - dramatic showcase rotation */
+@keyframes kineticFeatured {
+  0% {
+    transform: rotateY(-15deg) rotateX(8deg) translateZ(30px) scale(1.02);
+  }
+  33% {
+    transform: rotateY(10deg) rotateX(-4deg) translateZ(10px) scale(1);
+  }
+  66% {
+    transform: rotateY(15deg) rotateX(8deg) translateZ(20px) scale(1.01);
+  }
+  100% {
+    transform: rotateY(-15deg) rotateX(8deg) translateZ(30px) scale(1.02);
+  }
+}
+
+/* Spring bounce entrance */
+@keyframes kineticBounceIn {
+  0% {
+    opacity: 0;
+    transform: perspective(1200px) rotateY(-40deg) rotateX(20deg) scale(0.7) translateY(80px);
+  }
+  40% {
+    opacity: 1;
+    transform: perspective(1200px) rotateY(10deg) rotateX(-5deg) scale(1.05) translateY(-15px);
+  }
+  60% {
+    transform: perspective(1200px) rotateY(-5deg) rotateX(3deg) scale(0.98) translateY(8px);
+  }
+  80% {
+    transform: perspective(1200px) rotateY(2deg) rotateX(-1deg) scale(1.01) translateY(-3px);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(1200px) rotateY(0deg) rotateX(0deg) scale(1) translateY(0);
+  }
+}
+
+/* Dramatic spring entrance for stagger */
+.kinetic-stagger > * {
+  opacity: 0;
+  animation: kineticBounceIn 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  transform-style: preserve-3d;
+}
+
+.kinetic-stagger > *:nth-child(1) { animation-delay: 0.1s; }
+.kinetic-stagger > *:nth-child(2) { animation-delay: 0.2s; }
+.kinetic-stagger > *:nth-child(3) { animation-delay: 0.3s; }
+.kinetic-stagger > *:nth-child(4) { animation-delay: 0.4s; }
+.kinetic-stagger > *:nth-child(5) { animation-delay: 0.5s; }
+.kinetic-stagger > *:nth-child(6) { animation-delay: 0.6s; }
+
+/* Idle floating - dramatic */
+.kinetic-card.idle .kinetic-card-inner {
+  animation: kineticIdle 5s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  transform-style: preserve-3d;
+}
+
+.kinetic-card.card-featured.idle .kinetic-card-inner {
+  animation-name: kineticFeatured;
+  animation-duration: 7s;
+}
+
+/* Hover - dramatic lift */
+.kinetic-card:hover .kinetic-card-inner {
+  animation: none !important;
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow:
+    0 25px 50px -12px rgba(0, 0, 0, 0.5),
+    0 0 80px -20px var(--accent-glow);
+}
+
+/* ============================================
+   SHINE & REFLECTION EFFECTS
+   ============================================ */
+.kinetic-card-shine {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.kinetic-card-shine::before {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: -100%;
+  width: 300%;
+  height: 300%;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.02) 38%,
+    rgba(255, 255, 255, 0.12) 42%,
+    rgba(255, 255, 255, 0.02) 46%,
+    transparent 54%
+  );
+  transform: translateX(-100%) rotate(25deg);
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.kinetic-card:hover .kinetic-card-shine::before {
+  transform: translateX(60%) rotate(25deg);
+}
+
+/* Edge glow on hover */
+.kinetic-card-shine::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid transparent;
+  background: linear-gradient(var(--bg-elevated), var(--bg-elevated)) padding-box,
+              linear-gradient(135deg, var(--accent) 0%, transparent 50%, transparent 100%) border-box;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.kinetic-card:hover .kinetic-card-shine::after {
+  opacity: 0.5;
+}
+
+/* ============================================
+   3D DEPTH SHADOW
+   ============================================ */
+.kinetic-card-shadow {
+  position: absolute;
+  bottom: -25px;
+  left: 8%;
+  right: 8%;
+  height: 50px;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.6) 0%, transparent 70%);
+  filter: blur(20px);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: -1;
+  opacity: 0.8;
+}
+
+.kinetic-card:hover .kinetic-card-shadow {
+  bottom: -40px;
+  left: 3%;
+  right: 3%;
+  height: 60px;
+  opacity: 0.4;
+  filter: blur(30px);
+}
+
+/* ============================================
+   GLOW EFFECTS
+   ============================================ */
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 30px -10px var(--accent-glow);
+  }
+  50% {
+    box-shadow: 0 0 60px -5px var(--accent-glow);
+  }
+}
+
+@keyframes borderGlow {
+  0%, 100% {
+    border-color: rgba(41, 151, 255, 0.1);
+  }
+  50% {
+    border-color: rgba(41, 151, 255, 0.3);
+  }
+}
+
+/* Ambient floating particles */
+@keyframes particleFloat {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.3;
+  }
+  25% {
+    transform: translate(30px, -50px) scale(1.2);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(-20px, -80px) scale(0.8);
+    opacity: 0.2;
+  }
+  75% {
+    transform: translate(40px, -30px) scale(1.1);
+    opacity: 0.5;
+  }
+}
+
+/* ============================================
+   SCROLL REVEALS - more dramatic
+   ============================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(80px) scale(0.95);
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* ============================================
+   HERO ANIMATIONS
+   ============================================ */
+@keyframes heroGlow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1) translate(0, 0);
+  }
+  33% {
+    opacity: 0.7;
+    transform: scale(1.2) translate(30px, -40px);
+  }
+  66% {
+    opacity: 0.3;
+    transform: scale(0.9) translate(-20px, 20px);
+  }
+}
+
+@keyframes heroLineGrow {
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 0.3;
+  }
+}
+
+@keyframes scrollPulse {
+  0%, 100% {
+    opacity: 0.4;
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateX(-50%) translateY(8px);
+  }
+}
+
+/* ============================================
+   MAGNETIC BUTTON
+   ============================================ */
+.magnetic {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.magnetic:hover {
+  transform: scale(1.08);
+}
+
+.magnetic:active {
+  transform: scale(0.95);
+}
+
+/* ============================================
+   FILTER PILL GLOW
+   ============================================ */
+.filter-pill.active {
+  box-shadow: 0 0 20px -5px var(--accent-glow);
+}
+
+/* ============================================
+   REDUCED MOTION
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal { opacity: 1; transform: none; }
+  .kinetic-stagger > * { opacity: 1; animation: none; }
+  .kinetic-card.idle .kinetic-card-inner { animation: none; }
+}

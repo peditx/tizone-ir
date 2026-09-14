@@ -1,0 +1,88 @@
+---
+import '../styles/globals.css';
+import '../styles/components.css';
+import '../styles/animations.css';
+import '../styles/sections.css';
+import settings from '../data/settings.json';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+}
+const { title, description = 'Parsa Alemahmoud - Professional Video Editor & Director. Cinematic editing, music videos, and creative content production.', image = '/parsa.jpg' } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, 'https://tizone.ir');
+---
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+
+    <title>{title}</title>
+    <meta name="description" content={description}>
+    <meta name="keywords" content="Parsa Alemahmoud, video editor, director, filmmaker, Tizone, video production, creative director, cinema, music video, Tehran">
+    <link rel="canonical" href={canonicalURL}>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content={canonicalURL}>
+    <meta property="og:title" content={title}>
+    <meta property="og:description" content={description}>
+    <meta property="og:image" content={new URL(image, 'https://tizone.ir')}>
+    <meta property="og:site_name" content="Tizone">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content={title}>
+    <meta name="twitter:description" content={description}>
+    <meta name="twitter:image" content={new URL(image, 'https://tizone.ir')}>
+
+    <!-- Theme -->
+    <meta name="theme-color" content="#000000">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+    <link rel="manifest" href="/manifest.json">
+
+    <!-- Sitemap -->
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+
+    <!-- Theme settings injection -->
+    <style is:inline set:html={`
+      :root {
+        --accent: ${settings.accentColor};
+        --accent-glow: ${settings.accentColor}26;
+      }
+    `}></style>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Vazirmatn:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- SEO Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Parsa Alemahmoud",
+      "alternateName": "Tizone",
+      "url": "https://tizone.ir",
+      "image": "https://tizone.ir/parsa.jpg",
+      "jobTitle": ["Video Editor", "Director", "Filmmaker"],
+      "description": "Professional video editor and director specializing in cinematic editing, music videos, and creative content production.",
+      "knowsAbout": ["Video Editing", "Film Direction", "Music Videos", "Commercial Production", "Cinematography"],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Tehran",
+        "addressCountry": "IR"
+      },
+      "sameAs": [
+        "https://instagram.com/",
+        "https://youtube.com/",
+        "https://t.me/"
+      ]
+    })} />
